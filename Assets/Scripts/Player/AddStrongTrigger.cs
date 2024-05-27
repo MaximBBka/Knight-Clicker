@@ -13,10 +13,13 @@ public class AddStrongTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (checkPlayer.Check(transform) && Input.GetMouseButtonDown(0))
+        if (checkPlayer.Check(transform) && Input.GetMouseButtonDown(0) && !MainUI.Instance.WindowSettings.gameObject.activeSelf)
         {
-            MainUI.Instance.AddTotalStrong();
-            MainUI.Instance.FeildDown();
+            if (!MainUI.Instance.WindowAds.gameObject.activeSelf)
+            {
+                MainUI.Instance.AddTotalStrong();
+                MainUI.Instance.FeildDown();
+            }
         }
     }
     private void OnTriggerStay(Collider other)

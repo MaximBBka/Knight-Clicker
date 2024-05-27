@@ -24,27 +24,34 @@ public class AttackPlayer : MonoBehaviour
                 if (a == 1)
                 {
                     playerAnim.SetTrigger("isAttack1");
-
+                    Audio.Instance.Volume.Play();
                 }
                 else if (a == 2)
                 {
                     playerAnim.SetTrigger("isAttack2");
+                    Audio.Instance.Volume.Play();
                 }
                 else if (a == 3)
                 {
                     playerAnim.SetTrigger("isAttack3");
+                    Audio.Instance.Volume.Play();
                 }
                 canAttack = false;
                 attackTimer = 0.5f;
             }
         }
-        if (rb.velocity.magnitude > 0) // ?????????
+        if (!MainUI.Instance.isStop)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
+            if (rb.velocity.magnitude > 0.2f)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
     }
 }

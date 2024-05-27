@@ -9,15 +9,16 @@ public class MainUI : MonoBehaviour
     [SerializeField] public int totalStrong = 1;
     [SerializeField] private TextMeshProUGUI titleStrong;
     [SerializeField] private Image imageField;
-    [SerializeField] private TextMeshProUGUI NowBooster;
-    [SerializeField] private TextMeshProUGUI ThenBooster;
-    [SerializeField] public TextMeshProUGUI TimerTextAds;
+    [SerializeField] public TextMeshProUGUI NowBooster;
+    [SerializeField] public TextMeshProUGUI ThenBooster;
+    [SerializeField] public Text TimerTextAds;
     [SerializeField] public Transform WindowUpStrong;
     [SerializeField] public Transform WindowAds;
     [SerializeField] public Transform WindowSettings;
     [SerializeField] public Transform ButtonContinueAds;
     private int field = 50;
     public int click = 1;
+    public bool isStop = false; 
 
     [field: SerializeField] public static MainUI Instance {  get; private set; }
 
@@ -52,10 +53,12 @@ public class MainUI : MonoBehaviour
     public void StopGame()
     {
         Time.timeScale = 0;
+        isStop = true;
     }
     public void RunGame()
     {
         Time.timeScale = 1;
+        isStop = false;
     }
     public void UpdateTotalStrong()
     {
@@ -69,6 +72,7 @@ public class MainUI : MonoBehaviour
             UpdateUpStrong();
             field = 50;
             imageField.fillAmount = 0f;
+            Save.Load();
         }
     }
     public void FeildDown()

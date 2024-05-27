@@ -13,20 +13,32 @@ public class Ads : MonoBehaviour
 
     private void Update()
     {
-        if (!MainUI.Instance.WindowSettings.gameObject.activeSelf)
+        if (!MainUI.Instance.WindowSettings.gameObject.activeSelf && !MainUI.Instance.WindowAds.gameObject.activeSelf)
         {
             timer += Time.deltaTime;
         }
         if (timer >= 120f)
         {
-            Time.timeScale = 0f;
+            MainUI.Instance.StopGame();
             MainUI.Instance.WindowAds.gameObject.SetActive(true);
             MainUI.Instance.TimerTextAds.gameObject.SetActive(true);
-            MainUI.Instance.TimerTextAds.SetText($"Реклама {MathF.Round(timerPause)}..");
+            if (YandexGame.EnvironmentData.language == "ru")
+            {
+                MainUI.Instance.TimerTextAds.text = $"Реклама {MathF.Round(timerPause)}..";
+
+            }else if (YandexGame.EnvironmentData.language == "en")
+            {
+                MainUI.Instance.TimerTextAds.text = $"Advertisement {MathF.Round(timerPause)}..";
+            }else if(YandexGame.EnvironmentData.language == "tr")
+            {
+                MainUI.Instance.TimerTextAds.text = $"Reklam {MathF.Round(timerPause)}..";
+            }
             timerPause -= Time.unscaledDeltaTime;
             if (timerPause <= 0)
             {
                 ShowAds();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 timerPause = 3f;
                 MainUI.Instance.TimerTextAds.gameObject.SetActive(false);
                 MainUI.Instance.ButtonContinueAds.gameObject.SetActive(true);

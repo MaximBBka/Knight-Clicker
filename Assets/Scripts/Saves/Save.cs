@@ -6,15 +6,18 @@ using YG;
 
 public class Save : MonoBehaviour
 {
-    private int click;
-    private int totalStrong;
+    private static int click;
+    private static int totalStrong;
+    private static int nowBooster;
+    private static int thenBooster;
     private void Start()
     {
         Load();
         MainUI.Instance.totalStrong = totalStrong;
         MainUI.Instance.click = click;
+        MainUI.Instance.UpdateUpStrong();
     }
-    public void Load()
+    public static void Load()
     {
         YandexGame.LoadProgress();
         click = YandexGame.savesData.Clicker;
@@ -30,8 +33,9 @@ public class Save : MonoBehaviour
             Saves();
         }
     }
-    public void Saves()
+    public static void Saves()
     {
+        YandexGame.NewLeaderboardScores("LiderBoardStrong", totalStrong);
         YandexGame.savesData.Clicker = click;
         YandexGame.savesData.Strong = totalStrong;
         YandexGame.SaveProgress();

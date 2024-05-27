@@ -43,6 +43,7 @@ public class BaseMobs : MonoBehaviour
     public void Rewarded()
     {
         MainUI.Instance.AddTotalStrongReward(reward);
+        Save.Load();
     }
     private void OnDrawGizmos()
     {
